@@ -32,7 +32,7 @@ export const HeroSection = () => {
           size="lg"
           nativeButton={false}
           render={
-            <Link href="/auth/sign-up">
+            <Link href="/auth/create-account">
               Start Free Trial
               <ArrowRight />
             </Link>

@@ -7,7 +7,7 @@ const benefits = ["Free forever plan", "CBC aligned", "Cancel anytime"];
 export const CTA = () => {
   return (
     <section className="relative overflow-hidden bg-primary py-16">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/80" />
+      <div className="absolute inset-0 bg-linear-to-br from-primary via-primary to-primary/80" />
 
       <div className="absolute top-0 left-0 w-72 h-72 bg-primary-foreground/5 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-foreground/5 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl" />
@@ -32,7 +32,7 @@ export const CTA = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-          <Link href="/auth/sign-up">
+          <Link href="/auth/create-account">
             <Button
               size="lg"
               variant="secondary"

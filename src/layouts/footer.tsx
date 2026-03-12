@@ -1,9 +1,8 @@
 import { Logo } from "@/components/logo";
 import { Separator } from "@/components/ui/separator";
-import { Instagram } from "lucide-react";
+import { FacebookIcon, Instagram } from "lucide-react";
 import Link from "next/link";
 import { FaTiktok } from "react-icons/fa";
-import { BsTwitterX } from "react-icons/bs";
 
 const footerLinks = [
   {
@@ -41,10 +40,10 @@ const socialLinks = [
       "hover:bg-gradient-to-tr hover:from-yellow-700 hover:to-pink-600 hover:text-white", // IG pink→yellow gradient
   },
   {
-    icon: BsTwitterX,
-    url: "x.com",
-    name: "Twitter",
-    hover: "hover:bg-black hover:text-white", // Twitter solid black
+    icon: FacebookIcon,
+    url: "facebook.com",
+    name: "Facebook",
+    hover: "hover:bg-blue-700 hover:text-white", // Twitter solid black
   },
   {
     icon: FaTiktok,

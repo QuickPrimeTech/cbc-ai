@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -78,7 +77,10 @@ export const Pricing = () => {
   const [isYearly, setIsYearly] = useState(false);
 
   return (
-    <section className="py-20 bg-linear-to-br from-muted/50 to-muted">
+    <section
+      className="py-20 bg-linear-to-br from-muted/50 to-muted rounded-t-3xl"
+      id="pricing"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-foreground mb-4">
@@ -88,36 +90,24 @@ export const Pricing = () => {
             Start free. Upgrade anytime.
           </p>
 
-          {/* Toggle */}
-          <div className="inline-flex items-center gap-3 p-1 rounded-full bg-card border border-border">
-            <span
-              className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-                !isYearly
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground"
-              }`}
+          {/* Tabs */}
+          <div className="inline-flex items-center gap-1 p-1 rounded-full bg-card border border-border">
+            <Button
+              onClick={() => setIsYearly(false)}
+              variant={!isYearly ? "default" : "secondary"}
             >
               Monthly
-            </span>
-            <Switch
-              checked={isYearly}
-              onCheckedChange={setIsYearly}
-              className="data-[state=checked]:bg-primary"
-            />
-            <span
-              className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-                isYearly
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground"
-              }`}
+            </Button>
+            <Button
+              onClick={() => setIsYearly(true)}
+              variant={isYearly ? "default" : "secondary"}
+              className={"relative"}
             >
               Yearly
-            </span>
-            {isYearly && (
-              <span className="mr-3 text-xs font-semibold text-green-600 bg-green-100 px-2 py-1 rounded-full">
+              <span className="absolute -top-3 -right-8 text-xs font-semibold text-green-600 bg-green-100 px-2 py-0.5 rounded-full">
                 Save 20%
               </span>
-            )}
+            </Button>
           </div>
         </div>
 
@@ -172,7 +162,7 @@ export const Pricing = () => {
                     )}
                   </div>
 
-                  <Link href="/auth/sign-up" className="block mb-8">
+                  <Link href="/auth/create-account" className="block mb-8">
                     <Button
                       variant={plan.highlighted ? "default" : "outline"}
                       className="w-full"

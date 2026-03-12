@@ -31,10 +31,10 @@ import { Logo } from "@/components/logo";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Pricing", href: "/shop" },
-  { label: "Contact", href: "/contact" },
+  { label: "About", href: "/#about" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "Contact Us", href: "/#contact" },
+  { label: "Login", href: "/auth/login" },
 ];
 
 const contactInfo = [
@@ -104,12 +104,10 @@ export const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-border/50 rounded-b-sm ${
-        scrolled
-          ? "bg-background/80 backdrop-blur-lg shadow-elevated"
-          : "bg-transparent"
+        scrolled ? "bg-background/80 backdrop-blur-lg" : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between p-4 lg:px-8">
+      <div className="container mx-auto flex items-center justify-between px-4 py-2 lg:px-8">
         <Link href="/" className="flex items-center gap-2">
           <Logo />
           <span className="text-xl font-heading font-bold text-foreground">
@@ -138,7 +136,9 @@ export const Navbar = () => {
             nativeButton={false}
             size={"lg"}
             className={"animate-pulse"}
-            render={<Link href="auth/login"> Get Started Now for Free</Link>}
+            render={
+              <Link href="/auth/create-account"> Get Started Now for Free</Link>
+            }
           />
         </div>
 

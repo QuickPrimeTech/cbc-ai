@@ -48,7 +48,7 @@ const features = [
 
 export const Features = () => {
   return (
-    <section className="bg-background py-20 border-t">
+    <section className="bg-background py-20 border-t rounded-t-3xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-foreground mb-4">
