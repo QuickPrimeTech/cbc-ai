@@ -1,6 +1,7 @@
 "use client";
+
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { signInWithOAuth } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "./ui/spinner";
@@ -10,40 +11,18 @@ type OAuthButtonsProps = {
   disabled?: boolean;
 };
 
-// Helper to get the correct URL for any environment
-const getURL = () => {
-  let url =
-    process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
-    process?.env?.NEXT_PUBLIC_VERCEL_URL ?? // Automatically set by Vercel.
-    "http://localhost:3000/";
-
-  // Make sure to include `https://` when not localhost.
-  url = url.startsWith("http") ? url : `https://${url}`;
-
-  // Make sure to include a trailing `/`.
-  url = url.endsWith("/") ? url : `${url}/`;
-
-  return url;
-};
-
 export function OAuthButtons({ onError, disabled }: OAuthButtonsProps) {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [isFacebookLoading, setIsFacebookLoading] = useState(false);
 
-  const signInWithOAuth = async (provider: "google" | "facebook") => {
-    const supabase = createClient();
-
+  const handleSignIn = async (provider: "google" | "facebook") => {
     if (provider === "google") setIsGoogleLoading(true);
     if (provider === "facebook") setIsFacebookLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider,
-        options: {
-          redirectTo: `${getURL()}/auth/callback`,
-        },
-      });
-      if (error) throw error;
+      // Call Server Action - no props needed!
+      await signInWithOAuth(provider);
+      // No need to handle redirect - Server Action does it via `redirect()`
     } catch (error: unknown) {
       const message =
         error instanceof Error
@@ -62,7 +41,7 @@ export function OAuthButtons({ onError, disabled }: OAuthButtonsProps) {
       <Button
         variant="outline"
         className="w-full"
-        onClick={() => signInWithOAuth("google")}
+        onClick={() => handleSignIn("google")}
         disabled={isLoading || disabled}
       >
         {isGoogleLoading ? <Spinner /> : <GoogleIcon className="mr-2 size-5" />}
@@ -72,7 +51,7 @@ export function OAuthButtons({ onError, disabled }: OAuthButtonsProps) {
       <Button
         variant="outline"
         className="w-full"
-        onClick={() => signInWithOAuth("facebook")}
+        onClick={() => handleSignIn("facebook")}
         disabled={isLoading || disabled}
       >
         {isFacebookLoading ? (
@@ -116,9 +95,7 @@ const GoogleIcon = ({ className }: { className?: string }) => (
 
 const FacebookIcon = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24">
-    {/* Blue circular background */}
     <rect width="24" height="24" rx="12" fill="#1877F2" />
-    {/* White "f" */}
     <path
       d="M15.12 12.5h-2.17V19h-2.7v-6.5H8.35V10.1h1.9V8.38c0-2.33 1.15-3.38 3.47-3.38.98 0 1.82.07 2.06.1v2.3h-1.41c-1.11 0-1.48.42-1.48 1.39v1.31h2.56l-.34 2.4z"
       fill="white"
