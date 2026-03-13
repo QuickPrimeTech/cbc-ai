@@ -25,13 +25,13 @@ export const ContactUS = () => {
               </div>
               <div>
                 <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-                <p className="text-muted-foreground">+254 712 345 678</p>
+                <p className="text-muted-foreground">+254 717 448 835</p>
               </div>
               <Button
                 nativeButton={false}
                 render={
                   <Link
-                    href="tel:+254712345678"
+                    href="tel:+254717448835"
                     rel="noopener noreferrer"
                     target="_blank"
                   >

@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
@@ -43,25 +42,7 @@ export const HeroSection = () => {
         </Button>
       </div>
 
-      {/* Floating Card - uses card, border, and background colors */}
-      <div className="relative max-w-2xl mx-auto mb-16">
-        <div className="absolute inset-0 bg-linear-to-r from-primary/20 to-primary/10 rounded-2xl blur-3xl" />
-        <Card className="relative border bg-card/95 backdrop-blur p-8 rounded-2xl">
-          <div className="text-sm text-muted-foreground mb-4">
-            Example: Grade 5 Math Lesson
-          </div>
-          <p className="text-foreground font-medium mb-4">
-            "Create a 50-minute CBC-aligned lesson on fractions for Grade 5 with
-            activities, assessment rubric, and differentiation strategies"
-          </p>
-          <p className="text-muted-foreground text-sm leading-relaxed">
-            LessonAI instantly generates structured lesson plans with learning
-            objectives, detailed instructions, student activities, assessment
-            methods, and support strategies for diverse learners—all aligned
-            with Canadian curriculum standards.
-          </p>
-        </Card>
-      </div>
+      <div className="absolute inset-0 bg-linear-to-r from-primary/20 to-primary/10 rounded-2xl blur-3xl" />
     </section>
   );
 };

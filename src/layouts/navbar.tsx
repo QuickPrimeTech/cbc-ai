@@ -6,6 +6,7 @@ import {
   SheetContent,
   SheetTrigger,
   SheetTitle,
+  SheetClose,
 } from "@/components/ui/sheet";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -181,29 +182,42 @@ export const Navbar = () => {
                 <nav className="space-y-1">
                   {navLinks.map((link, index) => (
                     <motion.div key={link.label} variants={itemVariants}>
-                      <Link
-                        href={link.href}
-                        onClick={handleLinkClick}
-                        className="flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-primary dark:text-primary-foreground bg-primary/10 transition-all"
-                      >
-                        <span className="size-8 flex items-center justify-center rounded-md bg-primary/20 transition-colors text-sm font-bold text-primary/80 dark:text-primary-foreground/70 group-hover:text-primary">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        {link.label}
-                        <motion.div className="ml-auto" whileHover={{ x: 3 }}>
-                          →
-                        </motion.div>
-                      </Link>
+                      <SheetClose
+                        nativeButton={false}
+                        render={
+                          <Link
+                            href={link.href}
+                            onClick={handleLinkClick}
+                            className="flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-primary dark:text-primary-foreground bg-primary/10 transition-all"
+                          >
+                            <span className="size-8 flex items-center justify-center rounded-md bg-primary/20 transition-colors text-sm font-bold text-primary/80 dark:text-primary-foreground/70 group-hover:text-primary">
+                              {String(index + 1).padStart(2, "0")}
+                            </span>
+                            {link.label}
+                            <motion.div
+                              className="ml-auto"
+                              whileHover={{ x: 3 }}
+                            >
+                              →
+                            </motion.div>
+                          </Link>
+                        }
+                      />
                     </motion.div>
                   ))}
-                  <Button
+                  <SheetClose
                     nativeButton={false}
-                    size={"lg"}
-                    className={"w-full mt-3"}
                     render={
-                      <Link href={"/auth/login"}>
-                        Get Started for Free <ArrowRight />
-                      </Link>
+                      <Button
+                        nativeButton={false}
+                        size={"lg"}
+                        className={"w-full mt-3"}
+                        render={
+                          <Link href={"/auth/create-account"}>
+                            Get Started for Free <ArrowRight />
+                          </Link>
+                        }
+                      />
                     }
                   />
                 </nav>
