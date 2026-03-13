@@ -20,7 +20,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { OAuthButtons } from "./oAuthButtons";
 
 export function SignUpForm({
   className,
@@ -101,42 +101,7 @@ export function SignUpForm({
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-4">
-            {/* Social Login Buttons */}
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={() => signInWithOAuth("google")}
-              disabled={isGoogleLoading || isFacebookLoading}
-            >
-              {isGoogleLoading ? (
-                <LoaderIcon className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <GoogleIcon className="mr-2 h-4 w-4" />
-              )}
-              Continue with Google
-            </Button>
-
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={() => signInWithOAuth("facebook")}
-              disabled={isGoogleLoading || isFacebookLoading}
-            >
-              {isFacebookLoading ? (
-                <LoaderIcon className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <FacebookIcon className="mr-2 h-4 w-4" />
-              )}
-              Continue with Facebook
-            </Button>
-
-            <div className="relative my-2">
-              <Separator />
-              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
-                or continue with email
-              </span>
-            </div>
-
+            <OAuthButtons />
             <form onSubmit={handleSignUp}>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">

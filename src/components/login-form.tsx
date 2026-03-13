@@ -20,6 +20,7 @@ import {
   InputGroupInput,
 } from "./ui/input-group";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { OAuthButtons } from "./oAuthButtons";
 
 export function LoginForm({
   className,
@@ -54,7 +55,7 @@ export function LoginForm({
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn("flex flex-col gap-6 pt-8", className)} {...props}>
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
@@ -63,6 +64,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
+          <OAuthButtons />
           <form onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">

@@ -1,4 +1,3 @@
-"use client";
 import { HeroSection } from "@/sections/home/hero";
 import { Features } from "@/sections/home/features";
 import { Pricing } from "@/sections/home/pricing";
