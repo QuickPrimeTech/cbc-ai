@@ -18,7 +18,7 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "./ui/input-group";
+} from "../../components/ui/input-group";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { OAuthButtons } from "./oAuthButtons";
 
@@ -46,7 +46,7 @@ export function LoginForm({
       });
       if (error) throw error;
       // Update this route to redirect to an authenticated route. The user already has an active session.
-      router.push("/protected");
+      router.push("/dashboard");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {

@@ -162,15 +162,17 @@ export const Pricing = () => {
                     )}
                   </div>
 
-                  <Link href="/auth/create-account" className="block mb-8">
-                    <Button
-                      variant={plan.highlighted ? "default" : "outline"}
-                      className="w-full"
-                      size="lg"
-                    >
-                      {cta}
-                    </Button>
-                  </Link>
+                  <Button
+                    variant={plan.highlighted ? "default" : "outline"}
+                    className="w-full"
+                    size="lg"
+                    nativeButton={false}
+                    render={
+                      <Link href="/auth/create-account" className="block mb-8">
+                        {cta}
+                      </Link>
+                    }
+                  />
 
                   <ul className="space-y-4">
                     {features.map((feature, fidx) => (

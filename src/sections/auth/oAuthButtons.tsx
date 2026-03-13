@@ -4,7 +4,7 @@ import { useState } from "react";
 import { signInWithOAuth } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Spinner } from "./ui/spinner";
+import { Spinner } from "../../components/ui/spinner";
 
 type OAuthButtonsProps = {
   onError?: (error: string) => void;
