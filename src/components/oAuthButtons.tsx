@@ -49,11 +49,7 @@ export function OAuthButtons({ onError, disabled }: OAuthButtonsProps) {
         onClick={() => signInWithOAuth("google")}
         disabled={isLoading || disabled}
       >
-        {isGoogleLoading ? (
-          <Spinner />
-        ) : (
-          <GoogleIcon className="mr-2 h-4 w-4" />
-        )}
+        {isGoogleLoading ? <Spinner /> : <GoogleIcon className="mr-2 size-5" />}
         Continue with Google
       </Button>
 
