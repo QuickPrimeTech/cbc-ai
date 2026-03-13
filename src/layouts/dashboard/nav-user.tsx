@@ -1,10 +1,5 @@
-"use client"
-
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+"use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,42 +8,163 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
-import { EllipsisVerticalIcon, CircleUserRoundIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
+} from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useUserQuery } from "@/hooks/use-user";
+import { LogoutButton } from "@/sections/auth/logout-button";
+import {
+  EllipsisVerticalIcon,
+  CircleUserRoundIcon,
+  CreditCardIcon,
+  LogOutIcon,
+  Loader2Icon,
+  AlertCircleIcon,
+  UserIcon,
+  Settings,
+} from "lucide-react";
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string
-    email: string
-    avatar: string
+export function NavUser() {
+  const { isMobile } = useSidebar();
+  const { data: user, isLoading, isError } = useUserQuery();
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton size="lg" disabled>
+            <Skeleton className="size-8 rounded-lg" />
+            <div className="grid flex-1 gap-1">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-3 w-32" />
+            </div>
+            <Loader2Icon className="ml-auto size-4 animate-spin text-muted-foreground" />
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    );
   }
-}) {
-  const { isMobile } = useSidebar()
+
+  // Error state
+  if (isError) {
+    return (
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={(props) => (
+                <SidebarMenuButton
+                  {...props}
+                  size="lg"
+                  className="text-destructive aria-expanded:bg-destructive/10"
+                />
+              )}
+            >
+              <Avatar className="size-8 rounded-lg border-2 border-destructive">
+                <AvatarFallback className="rounded-lg bg-destructive/10">
+                  <AlertCircleIcon className="size-4 text-destructive" />
+                </AvatarFallback>
+              </Avatar>
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-medium text-destructive">
+                  Error loading user
+                </span>
+                <span className="truncate text-xs text-destructive/70">
+                  Tap to retry options
+                </span>
+              </div>
+              <EllipsisVerticalIcon className="ml-auto size-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="min-w-56"
+              side={isMobile ? "bottom" : "right"}
+              align="end"
+              sideOffset={4}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  variant="destructive"
+                  render={
+                    <LogoutButton>
+                      <LogOutIcon className="mr-2 size-4" />
+                      Log out
+                    </LogoutButton>
+                  }
+                />
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    );
+  }
+
+  // Empty/no user state
+  if (!user) {
+    return (
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton size="lg" disabled>
+            <Avatar className="size-8 rounded-lg">
+              <AvatarFallback className="rounded-lg bg-muted">
+                <UserIcon className="size-4 text-muted-foreground" />
+              </AvatarFallback>
+            </Avatar>
+            <div className="grid flex-1 text-left text-sm leading-tight">
+              <span className="truncate font-medium text-muted-foreground">
+                Not signed in
+              </span>
+              <span className="truncate text-xs text-muted-foreground/70">
+                Please log in
+              </span>
+            </div>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    );
+  }
+
+  // Success state - derive values with fallbacks
+  const fullName = user.fullName || "User";
+  const email = user.email || "No email";
+  const avatarUrl = user.avatarUrl;
+
+  const initials = fullName
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger
-            render={
-              <SidebarMenuButton size="lg" className="aria-expanded:bg-muted" />
-            }
+            render={(props) => (
+              <SidebarMenuButton
+                {...props}
+                size="lg"
+                className="aria-expanded:bg-muted"
+              />
+            )}
           >
-            <Avatar className="size-8 rounded-lg grayscale">
-              <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+            <Avatar className="size-8 rounded-lg">
+              <AvatarImage src={avatarUrl} alt={fullName} />
+              <AvatarFallback className="rounded-lg bg-sidebar-primary text-sidebar-primary-foreground font-medium">
+                {initials}
+              </AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-medium">{user.name}</span>
-              <span className="truncate text-xs text-foreground/70">
-                {user.email}
+              <span className="truncate font-medium">{fullName}</span>
+              <span className="truncate text-xs text-muted-foreground">
+                {email}
               </span>
             </div>
             <EllipsisVerticalIcon className="ml-auto size-4" />
@@ -63,13 +179,15 @@ export function NavUser({
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="size-8">
-                    <AvatarImage src={user.avatar} alt={user.name} />
-                    <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                    <AvatarImage src={avatarUrl} alt={fullName} />
+                    <AvatarFallback className="rounded-lg bg-sidebar-primary text-sidebar-primary-foreground font-medium">
+                      {initials}
+                    </AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium">{user.name}</span>
+                    <span className="truncate font-medium">{fullName}</span>
                     <span className="truncate text-xs text-muted-foreground">
-                      {user.email}
+                      {email}
                     </span>
                   </div>
                 </div>
@@ -78,30 +196,27 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <CircleUserRoundIcon
-                />
+                <CircleUserRoundIcon className="mr-2 size-4" />
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <CreditCardIcon
-                />
+                <CreditCardIcon className="mr-2 size-4" />
                 Billing
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <BellIcon
-                />
-                Notifications
+                <Settings className="mr-2 size-4" />
+                Settings
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOutIcon
-              />
-              Log out
-            </DropdownMenuItem>
+            <DropdownMenuItem
+              variant="destructive"
+              className={"w-full"}
+              render={<LogoutButton>Log out</LogoutButton>}
+            />
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }
