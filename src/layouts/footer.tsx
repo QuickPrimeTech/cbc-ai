@@ -8,15 +8,15 @@ const footerLinks = [
   {
     title: "Product",
     links: [
-      { label: "Features", href: "/features" },
-      { label: "Pricing", href: "/pricing" },
+      { label: "Features", href: "/#features" },
+      { label: "Pricing", href: "/#pricing" },
       { label: "Security", href: "/security" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "About", href: "/about" },
+      { label: "About", href: "/#about" },
       { label: "Blog", href: "/blog" },
       { label: "Careers", href: "/careers" },
     ],
@@ -26,7 +26,7 @@ const footerLinks = [
     links: [
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
-      { label: "Contact", href: "/contact" },
+      { label: "Contact", href: "/#contact" },
     ],
   },
 ];
