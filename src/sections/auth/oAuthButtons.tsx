@@ -13,11 +13,9 @@ type OAuthButtonsProps = {
 
 export function OAuthButtons({ onError, disabled }: OAuthButtonsProps) {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-  const [isFacebookLoading, setIsFacebookLoading] = useState(false);
 
-  const handleSignIn = async (provider: "google" | "facebook") => {
+  const handleSignIn = async (provider: "google") => {
     if (provider === "google") setIsGoogleLoading(true);
-    if (provider === "facebook") setIsFacebookLoading(true);
 
     try {
       // Call Server Action - no props needed!
@@ -30,11 +28,8 @@ export function OAuthButtons({ onError, disabled }: OAuthButtonsProps) {
           : `Failed to sign in with ${provider}`;
       onError?.(message);
       if (provider === "google") setIsGoogleLoading(false);
-      if (provider === "facebook") setIsFacebookLoading(false);
     }
   };
-
-  const isLoading = isGoogleLoading || isFacebookLoading;
 
   return (
     <div className="flex flex-col gap-4">
@@ -42,24 +37,10 @@ export function OAuthButtons({ onError, disabled }: OAuthButtonsProps) {
         variant="outline"
         className="w-full"
         onClick={() => handleSignIn("google")}
-        disabled={isLoading || disabled}
+        disabled={isGoogleLoading || disabled}
       >
         {isGoogleLoading ? <Spinner /> : <GoogleIcon className="mr-2 size-5" />}
         Continue with Google
-      </Button>
-
-      <Button
-        variant="outline"
-        className="w-full"
-        onClick={() => handleSignIn("facebook")}
-        disabled={isLoading || disabled}
-      >
-        {isFacebookLoading ? (
-          <Spinner />
-        ) : (
-          <FacebookIcon className="mr-2 size-5" />
-        )}
-        Continue with Facebook
       </Button>
 
       <div className="relative my-2">
@@ -89,16 +70,6 @@ const GoogleIcon = ({ className }: { className?: string }) => (
     <path
       d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
       fill="#EA4335"
-    />
-  </svg>
-);
-
-const FacebookIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24">
-    <rect width="24" height="24" rx="12" fill="#1877F2" />
-    <path
-      d="M15.12 12.5h-2.17V19h-2.7v-6.5H8.35V10.1h1.9V8.38c0-2.33 1.15-3.38 3.47-3.38.98 0 1.82.07 2.06.1v2.3h-1.41c-1.11 0-1.48.42-1.48 1.39v1.31h2.56l-.34 2.4z"
-      fill="white"
     />
   </svg>
 );

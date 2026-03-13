@@ -19,6 +19,7 @@ import {
   ClipboardCheckIcon,
   CircleHelpIcon,
   Settings,
+  Home,
 } from "lucide-react";
 import { Logo } from "@/components/logo";
 import Link from "next/link";
@@ -32,12 +33,12 @@ const data = {
     },
     {
       title: "Lesson Plans",
-      url: "/lesson-plans",
+      url: "/dashboard/lesson-plans",
       icon: <FilePlusIcon />,
     },
     {
       title: "Schemes of Work",
-      url: "/schemes",
+      url: "/dashboard/schemes",
       icon: <CalendarDaysIcon />,
     },
     {
@@ -48,6 +49,11 @@ const data = {
   ],
 
   navSecondary: [
+    {
+      title: "Back to Website",
+      url: "/",
+      icon: <Home />,
+    },
     {
       title: "Settings",
       url: "/settings",
