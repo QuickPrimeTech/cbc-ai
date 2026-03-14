@@ -41,12 +41,13 @@ export async function updateSession(request: NextRequest) {
   const user = data?.claims;
 
   // 1. Define your public paths here
-  const allowedPaths = ["/", "/login", "/auth"];
+  const allowedPaths = ["/", "/auth"];
 
   // 2. Check if the current path is in the allowed list
-  const isAllowed = allowedPaths.some((path) =>
-    request.nextUrl.pathname.startsWith(path),
-  );
+  const pathname = request.nextUrl.pathname;
+  const isAllowed =
+    pathname === "/" ||
+    allowedPaths.slice(1).some((path) => pathname.startsWith(path));
 
   // 3. Logic: If no user and NOT on an allowed path, boot them to login
   if (!user && !isAllowed) {

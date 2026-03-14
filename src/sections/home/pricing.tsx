@@ -78,7 +78,7 @@ export const Pricing = () => {
 
   return (
     <section
-      className="py-20 bg-linear-to-br from-muted/50 to-muted rounded-t-3xl"
+      className="py-20 bg-linear-to-br from-muted/50 to-muted rounded-3xl"
       id="pricing"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
