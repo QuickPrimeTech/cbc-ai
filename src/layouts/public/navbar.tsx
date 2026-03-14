@@ -59,7 +59,7 @@ const TEXT_SIZE_OPTIONS = [
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { setTheme, theme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   // Accessibility states
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -279,7 +279,7 @@ export const Navbar = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                        {theme === "dark" ? (
+                        {resolvedTheme === "dark" ? (
                           <Moon className="h-4 w-4 text-primary" />
                         ) : (
                           <Sun className="h-4 w-4 text-primary" />
@@ -287,14 +287,14 @@ export const Navbar = () => {
                       </div>
                       <Label
                         htmlFor="dark-mode"
-                        className="text-sm font-medium cursor-pointer"
+                        className="text-sm fon  t-medium cursor-pointer"
                       >
                         Dark Mode
                       </Label>
                     </div>
                     <Switch
                       id="dark-mode"
-                      checked={theme === "dark"}
+                      checked={resolvedTheme === "dark"}
                       onCheckedChange={(checked) =>
                         setTheme(checked ? "dark" : "light")
                       }
